@@ -90,7 +90,9 @@ mainProducts.forEach((mainProduct) => {
 thumbnailsMain.forEach((thumbnail, i) => {
   thumbnail.addEventListener("click", () => {
     mainProducts.forEach((p) => p.classList.remove("active"));
+    thumbnailsMain.forEach((t) => t.classList.remove("active"));
     mainProducts[i].classList.add("active");
+    thumbnail.classList.add("active");
   });
 });
 
@@ -109,6 +111,15 @@ const next1 = document.querySelector("#next");
 const prev1 = document.querySelector("#prev");
 const images1 = document.querySelectorAll(".main-product");
 const thumbnails1 = document.querySelectorAll(".thumbnail");
+
+thumbnails.forEach((thumbnail, i) => {
+  thumbnail.addEventListener("click", () => {
+    images.forEach((p) => p.classList.remove("active"));
+    thumbnails.forEach((t) => t.classList.remove("active"));
+    images[i].classList.add("active");
+    thumbnail.classList.add("active");
+  });
+});
 
 const nextSlide = (images, thumbnails, currSlide) => {
   images.forEach((image) => image.classList.remove("active"));
@@ -137,19 +148,34 @@ const previous = (images, thumbnails, currSlide) => {
 };
 
 let curr = 0;
+
+const getCurr = (images) => {
+  let curr = 0;
+  images.forEach((image, i) => {
+    if (image.classList.contains("active")) {
+      curr = i;
+    }
+  });
+  return curr;
+};
+
 next1.addEventListener("click", () => {
+  curr = getCurr(images1);
   curr = nextSlide(images1, thumbnails1, curr);
 });
 
 prev1.addEventListener("click", () => {
+  curr = getCurr(images1);
   curr = previous(images1, thumbnails1, curr);
 });
 
 next.addEventListener("click", () => {
+  curr = getCurr(images);
   curr = nextSlide(images, thumbnails, curr);
 });
 
 prev.addEventListener("click", () => {
+  curr = getCurr(images);
   curr = previous(images, thumbnails, curr);
 });
 
