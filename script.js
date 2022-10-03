@@ -74,14 +74,24 @@ addToCart.addEventListener("click", () => {
 
 //lightbox
 
-const mainProduct = document.querySelector(".main-product");
+const mainProducts = document.querySelectorAll(".main-product");
+const thumbnailsMain = document.querySelectorAll(".thumbnail");
 const backDrop = document.querySelector(".backdrop");
 const lightBox = document.querySelector(".lightbox");
 const cross = document.querySelector("#cart-cross");
 
-mainProduct.addEventListener("click", () => {
-  backDrop.classList.add("active");
-  lightBox.classList.add("active");
+mainProducts.forEach((mainProduct) => {
+  mainProduct.addEventListener("click", () => {
+    backDrop.classList.add("active");
+    lightBox.classList.add("active");
+  });
+});
+
+thumbnailsMain.forEach((thumbnail, i) => {
+  thumbnail.addEventListener("click", () => {
+    mainProducts.forEach((p) => p.classList.remove("active"));
+    mainProducts[i].classList.add("active");
+  });
 });
 
 cross.addEventListener("click", () => {
@@ -101,7 +111,7 @@ const images1 = document.querySelectorAll(".main-product");
 const thumbnails1 = document.querySelectorAll(".thumbnail");
 
 const nextSlide = (images, thumbnails, currSlide) => {
-  images[currSlide].classList.remove("active");
+  images.forEach((image) => image.classList.remove("active"));
   thumbnails[currSlide].classList.remove("active");
   if (currSlide === images1.length - 1) {
     currSlide = 0;
@@ -114,7 +124,7 @@ const nextSlide = (images, thumbnails, currSlide) => {
 };
 
 const previous = (images, thumbnails, currSlide) => {
-  images[currSlide].classList.remove("active");
+  images.forEach((image) => image.classList.remove("active"));
   thumbnails[currSlide].classList.remove("active");
   if (currSlide === 0) {
     currSlide = images.length - 1;
